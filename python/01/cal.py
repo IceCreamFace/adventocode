@@ -1,25 +1,20 @@
-text_file = open("input.txt", "r")
-contents = text_file.read()
-cal_list =contents.split('\n') 
-cur_total = 0
-high_scores = [0,0,0]
+with open("input.txt", "r") as f:
+    lines = f.readlines()
+    calories = [entery.strip() for entery in lines]
 
-for cal in cal_list:
-    if cal != '':
-        cur_total = cur_total + int(cal)
-    elif cal == '':
-        for i in range(len(high_scores)):
-            if cur_total > high_scores[i]:
-                high_scores[i] = cur_total
-                break
-            
+    elf_sums = []
+    current_sum = 0
+    
+    for entry in calories:
+        if entry != '':
+            current_sum += int(entry)
+        elif entry == '':
+            elf_sums.append(current_sum)
+            current_sum = 0
+    elf_sums.append(current_sum)
+    print(max(elf_sums))
+    elf_sums.sort(reverse=True)
 
-        cur_total = 0
+    print(elf_sums[0]+elf_sums[1]+elf_sums[2])
 
-print("Hight Scores: ",high_scores)
-print("Top 3 Total: ", sum(high_scores))
-
-        
-        
-text_file.close()
 
